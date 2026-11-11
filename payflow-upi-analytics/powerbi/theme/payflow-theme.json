@@ -1,0 +1,34 @@
+{
+  "name": "PayFlow",
+  "dataColors": ["#2A78D6", "#EB6834", "#1BAF7A", "#EDA100", "#E87BA4", "#008300", "#6250D6", "#E34948"],
+  "background": "#FFFFFF",
+  "foreground": "#1B2A3A",
+  "tableAccent": "#2A78D6",
+  "good": "#0CA30C",
+  "neutral": "#FAB219",
+  "bad": "#D03B3B",
+  "maximum": "#184F95",
+  "center": "#F0EFEC",
+  "minimum": "#CDE2FB",
+  "null": "#C3C2B7",
+  "textClasses": {
+    "callout": { "fontSize": 28, "fontFace": "Segoe UI Semibold", "color": "#1B2A3A" },
+    "title": { "fontSize": 12, "fontFace": "Segoe UI Semibold", "color": "#1B2A3A" },
+    "header": { "fontSize": 12, "fontFace": "Segoe UI Semibold", "color": "#1B2A3A" },
+    "label": { "fontSize": 10, "fontFace": "Segoe UI", "color": "#52514E" }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "title": [{ "show": true, "fontColor": { "solid": { "color": "#1B2A3A" } }, "fontSize": 12 }],
+        "background": [{ "show": true, "color": { "solid": { "color": "#FFFFFF" } }, "transparency": 0 }],
+        "border": [{ "show": true, "color": { "solid": { "color": "#D5DAE1" } }, "radius": 4 }]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [{ "color": { "solid": { "color": "#F3F5F8" } }, "transparency": 0 }]
+      }
+    }
+  }
+}

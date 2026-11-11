@@ -1,0 +1,154 @@
+// ============================================================================
+// PAYFLOW - DAX MEASURES
+// Create an empty table first:  Home > Enter data > name it  _Measures  > Load.
+// Then add each measure with  Modeling > New measure  (or Table tools > New measure), selecting _Measures.
+// Set the Display folder shown in the "// Folder:" comment (Model view > select the measure > Properties).
+// Table and column names assume the Power Query names in powerbi/powerquery/.
+// Prerequisites: dim_date marked as the date table on [date]; relationships as in BUILD_GUIDE.md.
+// ============================================================================
+
+
+// ---------- Folder: 1 Volume and value ---------------------------------------
+Total Transactions =
+COUNTROWS ( fact_transactions )
+
+Successful Transactions =
+CALCULATE ( [Total Transactions], fact_transactions[status] = "Success" )
+
+Failed Transactions =
+CALCULATE ( [Total Transactions], fact_transactions[status] = "Failed" )
+
+TPV =
+CALCULATE ( SUM ( fact_transactions[amount] ), fact_transactions[status] = "Success" )
+
+Average Ticket =
+DIVIDE ( [TPV], [Successful Transactions] )
+
+P2M Share of TPV =
+DIVIDE ( CALCULATE ( [TPV], fact_transactions[txn_type] = "P2M" ), [TPV] )
+
+
+// ---------- Folder: 2 Reliability --------------------------------------------
+Success Rate =
+DIVIDE ( [Successful Transactions], [Total Transactions] )
+
+System Failures =
+CALCULATE ( [Total Transactions], fact_transactions[failure_type] = "System" )
+
+System Failure Rate =
+DIVIDE ( [System Failures], [Total Transactions] )
+
+User Failures =
+CALCULATE ( [Total Transactions], fact_transactions[failure_type] = "User" )
+
+User Failure Rate =
+DIVIDE ( [User Failures], [Total Transactions] )
+
+Risk Blocks =
+CALCULATE ( [Total Transactions], fact_transactions[failure_type] = "Risk" )
+
+Value Lost to System Failures =
+CALCULATE ( SUM ( fact_transactions[amount] ), fact_transactions[failure_type] = "System" )
+
+Avg Response (sec) =
+DIVIDE ( AVERAGE ( fact_transactions[response_ms] ), 1000 )
+
+Bank Reliability Rank =
+// 1 = highest system failure rate among the banks currently in context
+RANKX ( ALLSELECTED ( dim_bank[bank_name] ), [System Failure Rate], , DESC, DENSE )
+
+
+// ---------- Folder: 3 Risk and cost ------------------------------------------
+Fraud Flags =
+SUM ( fact_transactions[fraud_flag] )
+
+Fraud Rate (bps) =
+DIVIDE ( [Fraud Flags], [Total Transactions] ) * 10000
+
+Fraud Loss =
+SUM ( fact_transactions[fraud_loss] )
+
+Cashback Paid =
+SUM ( fact_transactions[cashback] )
+
+Cashback % of TPV =
+DIVIDE ( [Cashback Paid], [TPV] )
+
+
+// ---------- Folder: 4 Customers ----------------------------------------------
+Active Users =
+DISTINCTCOUNT ( fact_transactions[customer_id] )
+
+Txns per Active User =
+DIVIDE ( [Total Transactions], [Active Users] )
+
+New Customers =
+// Needs the INACTIVE relationship dim_customer[signup_date] -> dim_date[date]
+CALCULATE ( COUNTROWS ( dim_customer ), USERELATIONSHIP ( dim_customer[signup_date], dim_date[date] ) )
+
+
+// ---------- Folder: 5 Time intelligence --------------------------------------
+TPV Prev Month =
+CALCULATE ( [TPV], DATEADD ( dim_date[date], -1, MONTH ) )
+
+TPV MoM % =
+DIVIDE ( [TPV] - [TPV Prev Month], [TPV Prev Month] )
+
+TPV Same Period LY =
+CALCULATE ( [TPV], SAMEPERIODLASTYEAR ( dim_date[date] ) )
+
+TPV YoY % =
+DIVIDE ( [TPV] - [TPV Same Period LY], [TPV Same Period LY] )
+
+TPV YTD =
+TOTALYTD ( [TPV], dim_date[date] )
+
+TPV Rolling 3M Avg =
+VAR _end = MAX ( dim_date[date] )
+RETURN
+    DIVIDE (
+        CALCULATE ( [TPV], DATESINPERIOD ( dim_date[date], _end, -3, MONTH ) ),
+        3
+    )
+
+
+// ---------- Folder: 6 Incident detection ------------------------------------
+Bank Normal System Failure Rate =
+// The rate for the selected bank(s) over ALL dates. Removes the date filter, keeps bank, city and category filters.
+CALCULATE ( [System Failure Rate], REMOVEFILTERS ( dim_date ) )
+
+Chance of Spike by Luck =
+// Probability of seeing at least this many system failures in a day if the bank were behaving normally.
+// Blank when the day has fewer than 5 transactions (too few to test).
+VAR _n = [Total Transactions]
+VAR _k = [System Failures]
+VAR _p = [Bank Normal System Failure Rate]
+RETURN
+    IF ( _n < 5, BLANK (), IF ( _k = 0, 1, 1 - BINOM.DIST ( _k - 1, _n, _p, TRUE ) ) )
+
+Incident Flag =
+// 1 when that chance is below 0.1%
+VAR _chance = [Chance of Spike by Luck]
+RETURN
+    IF ( NOT ISBLANK ( _chance ) && _chance < 0.001, 1, 0 )
+
+Incident Days =
+// Use with ONE bank selected (the rule is meant for a single bank's daily counts)
+SUMX ( VALUES ( dim_date[date] ), [Incident Flag] )
+
+
+// ---------- Folder: 7 Formatting helpers -------------------------------------
+Selected Period =
+IF ( HASONEVALUE ( dim_date[month_key] ), SELECTEDVALUE ( dim_date[month_key] ), "All periods" )
+
+Success Rate Color =
+// Use in Conditional formatting > Format style > Field value
+SWITCH (
+    TRUE (),
+    [Success Rate] >= 0.95, "#0CA30C",
+    [Success Rate] >= 0.93, "#FAB219",
+    "#D03B3B"
+)
+
+Page Title Reliability =
+"System failure rate by bank | " & [Selected Period]

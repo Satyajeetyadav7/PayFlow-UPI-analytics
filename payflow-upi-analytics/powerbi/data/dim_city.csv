@@ -1,0 +1,14 @@
+city_id,city,tier,region
+0,N/A (P2P),N/A,N/A
+1,Mumbai,Tier 1,West
+2,Delhi NCR,Tier 1,North
+3,Bengaluru,Tier 1,South
+4,Hyderabad,Tier 1,South
+5,Chennai,Tier 1,South
+6,Pune,Tier 1,West
+7,Kolkata,Tier 1,East
+8,Jaipur,Tier 2,North
+9,Lucknow,Tier 2,North
+10,Indore,Tier 2,Central
+11,Patna,Tier 2,East
+12,Coimbatore,Tier 2,South

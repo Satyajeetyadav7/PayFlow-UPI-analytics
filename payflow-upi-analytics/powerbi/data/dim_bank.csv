@@ -1,0 +1,11 @@
+bank_id,bank_name,bank_type
+1,Orion Private Bank,Private
+2,Vertex Private Bank,Private
+3,Lakeview Private Bank,Private
+4,Citadel National Bank,Public
+5,Dominion National Bank,Public
+6,Pioneer National Bank,Public
+7,Crestline National Bank,Public
+8,Sunrise Small Finance Bank,Small Finance
+9,Greenfield Small Finance Bank,Small Finance
+10,Alliance Co-operative Bank,Co-operative

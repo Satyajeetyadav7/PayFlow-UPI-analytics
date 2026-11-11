@@ -1,0 +1,422 @@
+merchant_id,merchant_name,category,city_id,merchant_size
+0,P2P (Individual),P2P Transfer,0,N/A
+9001,Singh Supermart,Grocery & Kirana,7,Medium
+9002,Reddy Diagnostics,Healthcare & Pharmacy,3,Micro
+9003,Khan Footwear,Shopping & Fashion,9,Medium
+9004,Das Tiffin Centre,Food Delivery,9,Small
+9005,Kulkarni Kitchen,Food Delivery,9,Small
+9006,Reddy Cabs,Travel & Transport,9,Large
+9007,Mehta General Store,Grocery & Kirana,4,Small
+9008,Verma Fuel Station,Fuel,9,Micro
+9009,Singh Cafe,Food Delivery,7,Micro
+9010,Das Diagnostics,Healthcare & Pharmacy,1,Small
+9011,Patel Electricity Board,Utilities & Bills,3,Medium
+9012,Reddy Metro Pass,Travel & Transport,8,Micro
+9013,Rao Fresh Mart,Grocery & Kirana,12,Large
+9014,Patel General Store,Grocery & Kirana,1,Micro
+9015,Verma Recharge Point,Mobile Recharge,2,Micro
+9016,Iyer Home Decor,Shopping & Fashion,9,Micro
+9017,Mehta Streaming,Entertainment,4,Micro
+9018,Bhatt Electronics,Shopping & Fashion,2,Small
+9019,Verma Cabs,Travel & Transport,10,Micro
+9020,Pillai Fashion,Shopping & Fashion,8,Micro
+9021,Sharma Fuel Station,Fuel,4,Micro
+9022,Pillai Petro Point,Fuel,8,Small
+9023,Banerjee Supermart,Grocery & Kirana,3,Micro
+9024,Banerjee Home Decor,Shopping & Fashion,6,Micro
+9025,Chopra Fresh Mart,Grocery & Kirana,3,Micro
+9026,Verma Mobile Hub,Mobile Recharge,5,Medium
+9027,Sharma Streaming,Entertainment,7,Medium
+9028,Bhatt Travels,Travel & Transport,12,Small
+9029,Verma Fashion,Shopping & Fashion,5,Micro
+9030,Kulkarni Diagnostics,Healthcare & Pharmacy,11,Small
+9031,Das Fresh Mart,Grocery & Kirana,1,Medium
+9032,Menon Broadband,Utilities & Bills,12,Small
+9033,Sharma Coaching Centre,Education,3,Medium
+9034,Mehta Fresh Mart,Grocery & Kirana,8,Small
+9035,Verma Supermart,Grocery & Kirana,6,Micro
+9036,Menon Cinemas,Entertainment,2,Medium
+9037,Iyer Fresh Mart,Grocery & Kirana,1,Medium
+9038,Kulkarni Pharmacy,Healthcare & Pharmacy,1,Micro
+9039,Bhatt Mobile Hub,Mobile Recharge,4,Micro
+9040,Gupta General Store,Grocery & Kirana,3,Small
+9041,Sharma Kitchen,Food Delivery,3,Medium
+9042,Banerjee Tiffin Centre,Food Delivery,9,Micro
+9043,Khan Fashion,Shopping & Fashion,10,Small
+9044,Menon Streaming,Entertainment,4,Medium
+9045,Rao Cinemas,Entertainment,8,Small
+9046,Nair Cinemas,Entertainment,1,Micro
+9047,Das Tiffin Centre,Food Delivery,3,Micro
+9048,Das Kirana,Grocery & Kirana,2,Micro
+9049,Kulkarni Electronics,Shopping & Fashion,2,Micro
+9050,Singh Travels,Travel & Transport,3,Micro
+9051,Gupta Cabs,Travel & Transport,3,Small
+9052,Mehta Cinemas,Entertainment,3,Small
+9053,Iyer Metro Pass,Travel & Transport,2,Micro
+9054,Das Cabs,Travel & Transport,12,Micro
+9055,Khan Clinic,Healthcare & Pharmacy,7,Micro
+9056,Verma Footwear,Shopping & Fashion,8,Micro
+9057,Sharma Cafe,Food Delivery,11,Micro
+9058,Reddy Home Decor,Shopping & Fashion,3,Small
+9059,Das Cinemas,Entertainment,1,Micro
+9060,Menon Electricity Board,Utilities & Bills,4,Small
+9061,Iyer Fashion,Shopping & Fashion,2,Micro
+9062,Gupta Bus Tickets,Travel & Transport,8,Small
+9063,Gupta Supermart,Grocery & Kirana,3,Medium
+9064,Joshi Electronics,Shopping & Fashion,10,Small
+9065,Sharma General Store,Grocery & Kirana,4,Small
+9066,Yadav Tiffin Centre,Food Delivery,7,Medium
+9067,Bhatt Petro Point,Fuel,3,Small
+9068,Singh Pharmacy,Healthcare & Pharmacy,8,Small
+9069,Reddy Supermart,Grocery & Kirana,3,Micro
+9070,Bhatt Home Decor,Shopping & Fashion,2,Micro
+9071,Sharma Supermart,Grocery & Kirana,8,Small
+9072,Nair Petro Point,Fuel,7,Micro
+9073,Patel Biryani House,Food Delivery,4,Micro
+9074,Chopra Tiffin Centre,Food Delivery,6,Micro
+9075,Joshi Kitchen,Food Delivery,1,Micro
+9076,Khan Coaching Centre,Education,11,Medium
+9077,Kulkarni Cafe,Food Delivery,2,Micro
+9078,Kulkarni Gas Agency,Utilities & Bills,4,Small
+9079,Das Kitchen,Food Delivery,3,Micro
+9080,Gupta Home Decor,Shopping & Fashion,9,Micro
+9081,Joshi Cinemas,Entertainment,1,Micro
+9082,Patel Supermart,Grocery & Kirana,3,Small
+9083,Patel Metro Pass,Travel & Transport,9,Medium
+9084,Menon Fresh Mart,Grocery & Kirana,10,Medium
+9085,Pillai Clinic,Healthcare & Pharmacy,1,Small
+9086,Chopra Kitchen,Food Delivery,6,Micro
+9087,Iyer Bus Tickets,Travel & Transport,2,Micro
+9088,Sharma Kirana,Grocery & Kirana,4,Small
+9089,Bhatt General Store,Grocery & Kirana,9,Medium
+9090,Joshi Gas Agency,Utilities & Bills,12,Micro
+9091,Menon Biryani House,Food Delivery,3,Micro
+9092,Patel Tiffin Centre,Food Delivery,3,Micro
+9093,Mehta Electricity Board,Utilities & Bills,4,Small
+9094,Banerjee Footwear,Shopping & Fashion,1,Medium
+9095,Kulkarni Academy,Education,3,Large
+9096,Mehta Fresh Mart,Grocery & Kirana,2,Micro
+9097,Sharma Coaching Centre,Education,1,Small
+9098,Khan Travels,Travel & Transport,9,Micro
+9099,Yadav Kitchen,Food Delivery,2,Medium
+9100,Verma Travels,Travel & Transport,11,Micro
+9101,Menon Fashion,Shopping & Fashion,9,Medium
+9102,Gupta Coaching Centre,Education,1,Micro
+9103,Joshi Mobile Hub,Mobile Recharge,4,Medium
+9104,Rao Petro Point,Fuel,5,Small
+9105,Patel Recharge Point,Mobile Recharge,2,Micro
+9106,Khan Kirana,Grocery & Kirana,3,Small
+9107,Chopra Cabs,Travel & Transport,8,Micro
+9108,Iyer Cafe,Food Delivery,2,Large
+9109,Khan Play Zone,Entertainment,10,Medium
+9110,Nair Gas Agency,Utilities & Bills,6,Small
+9111,Bhatt Academy,Education,4,Small
+9112,Gupta Water Works,Utilities & Bills,1,Large
+9113,Sharma Supermart,Grocery & Kirana,4,Medium
+9114,Joshi Petro Point,Fuel,8,Small
+9115,Reddy Supermart,Grocery & Kirana,8,Micro
+9116,Iyer Mobile Hub,Mobile Recharge,2,Small
+9117,Verma Petro Point,Fuel,3,Micro
+9118,Joshi Home Decor,Shopping & Fashion,2,Small
+9119,Iyer Supermart,Grocery & Kirana,2,Medium
+9120,Mehta Supermart,Grocery & Kirana,12,Small
+9121,Rao Tutorials,Education,11,Medium
+9122,Reddy Fashion,Shopping & Fashion,1,Small
+9123,Pillai Mobile Hub,Mobile Recharge,3,Micro
+9124,Verma Academy,Education,7,Small
+9125,Chopra Clinic,Healthcare & Pharmacy,10,Micro
+9126,Singh Recharge Point,Mobile Recharge,1,Small
+9127,Pillai Footwear,Shopping & Fashion,3,Small
+9128,Banerjee Metro Pass,Travel & Transport,1,Small
+9129,Banerjee Biryani House,Food Delivery,10,Micro
+9130,Gupta Home Decor,Shopping & Fashion,1,Large
+9131,Menon Fashion,Shopping & Fashion,2,Micro
+9132,Menon Petro Point,Fuel,5,Small
+9133,Kulkarni Kirana,Grocery & Kirana,1,Micro
+9134,Patel Cinemas,Entertainment,6,Large
+9135,Reddy Home Decor,Shopping & Fashion,2,Medium
+9136,Kulkarni Supermart,Grocery & Kirana,12,Micro
+9137,Bhatt Play Zone,Entertainment,3,Micro
+9138,Banerjee Recharge Point,Mobile Recharge,3,Small
+9139,Patel Clinic,Healthcare & Pharmacy,5,Medium
+9140,Rao Electricity Board,Utilities & Bills,2,Medium
+9141,Chopra General Store,Grocery & Kirana,8,Small
+9142,Khan Home Decor,Shopping & Fashion,9,Large
+9143,Gupta Pharmacy,Healthcare & Pharmacy,12,Micro
+9144,Banerjee Fresh Mart,Grocery & Kirana,6,Micro
+9145,Menon Recharge Point,Mobile Recharge,6,Micro
+9146,Singh Kirana,Grocery & Kirana,2,Micro
+9147,Banerjee Kitchen,Food Delivery,1,Large
+9148,Iyer Footwear,Shopping & Fashion,3,Small
+9149,Bhatt Fuel Station,Fuel,3,Micro
+9150,Reddy Diagnostics,Healthcare & Pharmacy,9,Small
+9151,Nair Fashion,Shopping & Fashion,3,Micro
+9152,Singh Mobile Hub,Mobile Recharge,8,Small
+9153,Yadav Petro Point,Fuel,11,Large
+9154,Verma Tiffin Centre,Food Delivery,5,Small
+9155,Khan Tiffin Centre,Food Delivery,10,Micro
+9156,Joshi Streaming,Entertainment,1,Medium
+9157,Das Biryani House,Food Delivery,2,Small
+9158,Joshi Electricity Board,Utilities & Bills,4,Micro
+9159,Banerjee Academy,Education,7,Small
+9160,Verma Academy,Education,3,Medium
+9161,Joshi General Store,Grocery & Kirana,11,Small
+9162,Yadav Broadband,Utilities & Bills,4,Medium
+9163,Chopra Cabs,Travel & Transport,10,Small
+9164,Joshi Fuel Station,Fuel,2,Micro
+9165,Sharma Recharge Point,Mobile Recharge,6,Micro
+9166,Das Supermart,Grocery & Kirana,8,Small
+9167,Kulkarni Bus Tickets,Travel & Transport,9,Micro
+9168,Chopra Fuel Station,Fuel,6,Small
+9169,Banerjee Broadband,Utilities & Bills,4,Micro
+9170,Sharma Pharmacy,Healthcare & Pharmacy,1,Large
+9171,Das Play Zone,Entertainment,1,Micro
+9172,Menon Fresh Mart,Grocery & Kirana,3,Large
+9173,Gupta Recharge Point,Mobile Recharge,7,Small
+9174,Joshi Tiffin Centre,Food Delivery,2,Micro
+9175,Mehta Fresh Mart,Grocery & Kirana,8,Micro
+9176,Gupta Fresh Mart,Grocery & Kirana,7,Medium
+9177,Bhatt Broadband,Utilities & Bills,5,Small
+9178,Joshi Streaming,Entertainment,9,Small
+9179,Chopra Petro Point,Fuel,1,Small
+9180,Mehta Water Works,Utilities & Bills,11,Medium
+9181,Nair Fresh Mart,Grocery & Kirana,4,Medium
+9182,Rao Fashion,Shopping & Fashion,2,Small
+9183,Iyer Supermart,Grocery & Kirana,3,Medium
+9184,Kulkarni Cafe,Food Delivery,3,Medium
+9185,Singh Supermart,Grocery & Kirana,6,Small
+9186,Mehta Metro Pass,Travel & Transport,3,Micro
+9187,Joshi Gas Agency,Utilities & Bills,4,Micro
+9188,Mehta Cafe,Food Delivery,4,Small
+9189,Banerjee Recharge Point,Mobile Recharge,3,Micro
+9190,Sharma General Store,Grocery & Kirana,6,Micro
+9191,Joshi Kitchen,Food Delivery,2,Small
+9192,Khan Gas Agency,Utilities & Bills,9,Micro
+9193,Yadav Fresh Mart,Grocery & Kirana,1,Medium
+9194,Menon Kirana,Grocery & Kirana,5,Small
+9195,Yadav Fuel Station,Fuel,3,Small
+9196,Kulkarni Home Decor,Shopping & Fashion,8,Micro
+9197,Reddy Kitchen,Food Delivery,8,Small
+9198,Kulkarni Footwear,Shopping & Fashion,11,Medium
+9199,Verma Petro Point,Fuel,11,Small
+9200,Das Gas Agency,Utilities & Bills,10,Small
+9201,Yadav Kitchen,Food Delivery,2,Small
+9202,Joshi Kitchen,Food Delivery,3,Medium
+9203,Das Electronics,Shopping & Fashion,3,Micro
+9204,Singh Gas Agency,Utilities & Bills,3,Large
+9205,Reddy Academy,Education,10,Medium
+9206,Joshi Electronics,Shopping & Fashion,5,Micro
+9207,Kulkarni Bus Tickets,Travel & Transport,2,Micro
+9208,Mehta General Store,Grocery & Kirana,4,Small
+9209,Joshi Coaching Centre,Education,3,Micro
+9210,Yadav Recharge Point,Mobile Recharge,2,Micro
+9211,Yadav Supermart,Grocery & Kirana,3,Small
+9212,Reddy Fresh Mart,Grocery & Kirana,1,Micro
+9213,Kulkarni Play Zone,Entertainment,3,Micro
+9214,Joshi Cafe,Food Delivery,3,Medium
+9215,Verma Tutorials,Education,1,Micro
+9216,Yadav Tutorials,Education,1,Small
+9217,Reddy Broadband,Utilities & Bills,5,Small
+9218,Bhatt Play Zone,Entertainment,2,Small
+9219,Bhatt Supermart,Grocery & Kirana,6,Micro
+9220,Verma Recharge Point,Mobile Recharge,6,Small
+9221,Chopra Travels,Travel & Transport,2,Large
+9222,Khan General Store,Grocery & Kirana,12,Micro
+9223,Pillai Fresh Mart,Grocery & Kirana,5,Micro
+9224,Menon Kirana,Grocery & Kirana,8,Micro
+9225,Yadav Cinemas,Entertainment,5,Small
+9226,Iyer Fresh Mart,Grocery & Kirana,12,Micro
+9227,Iyer Recharge Point,Mobile Recharge,2,Large
+9228,Gupta Broadband,Utilities & Bills,1,Small
+9229,Menon Electronics,Shopping & Fashion,8,Micro
+9230,Banerjee Electronics,Shopping & Fashion,5,Small
+9231,Pillai Gas Agency,Utilities & Bills,8,Medium
+9232,Rao Coaching Centre,Education,12,Small
+9233,Gupta Electricity Board,Utilities & Bills,2,Micro
+9234,Menon Fresh Mart,Grocery & Kirana,1,Medium
+9235,Sharma Play Zone,Entertainment,4,Medium
+9236,Patel Tiffin Centre,Food Delivery,2,Micro
+9237,Joshi Kirana,Grocery & Kirana,10,Small
+9238,Yadav General Store,Grocery & Kirana,12,Micro
+9239,Kulkarni Gas Agency,Utilities & Bills,11,Micro
+9240,Patel Water Works,Utilities & Bills,9,Micro
+9241,Menon Academy,Education,6,Micro
+9242,Gupta Home Decor,Shopping & Fashion,12,Micro
+9243,Sharma Petro Point,Fuel,12,Micro
+9244,Joshi Home Decor,Shopping & Fashion,5,Micro
+9245,Kulkarni Petro Point,Fuel,4,Medium
+9246,Iyer Cabs,Travel & Transport,3,Micro
+9247,Banerjee Gas Agency,Utilities & Bills,4,Small
+9248,Iyer Kirana,Grocery & Kirana,1,Micro
+9249,Sharma Electronics,Shopping & Fashion,6,Micro
+9250,Yadav Supermart,Grocery & Kirana,6,Small
+9251,Sharma Kitchen,Food Delivery,6,Micro
+9252,Yadav Tiffin Centre,Food Delivery,11,Small
+9253,Kulkarni General Store,Grocery & Kirana,3,Micro
+9254,Khan Pharmacy,Healthcare & Pharmacy,8,Medium
+9255,Nair Metro Pass,Travel & Transport,4,Micro
+9256,Kulkarni Kitchen,Food Delivery,1,Medium
+9257,Kulkarni Diagnostics,Healthcare & Pharmacy,3,Small
+9258,Sharma Cafe,Food Delivery,3,Small
+9259,Iyer Clinic,Healthcare & Pharmacy,1,Micro
+9260,Joshi Play Zone,Entertainment,2,Small
+9261,Banerjee Kirana,Grocery & Kirana,3,Micro
+9262,Sharma Cinemas,Entertainment,2,Small
+9263,Khan Cafe,Food Delivery,2,Micro
+9264,Chopra Bus Tickets,Travel & Transport,1,Small
+9265,Pillai Home Decor,Shopping & Fashion,9,Large
+9266,Singh Pharmacy,Healthcare & Pharmacy,7,Micro
+9267,Chopra Water Works,Utilities & Bills,7,Micro
+9268,Reddy Gas Agency,Utilities & Bills,2,Micro
+9269,Singh Mobile Hub,Mobile Recharge,2,Micro
+9270,Pillai Play Zone,Entertainment,7,Micro
+9271,Das Mobile Hub,Mobile Recharge,1,Micro
+9272,Chopra Metro Pass,Travel & Transport,1,Micro
+9273,Iyer Fuel Station,Fuel,1,Small
+9274,Patel Mobile Hub,Mobile Recharge,6,Micro
+9275,Gupta Tiffin Centre,Food Delivery,6,Small
+9276,Reddy Play Zone,Entertainment,2,Medium
+9277,Khan Supermart,Grocery & Kirana,12,Small
+9278,Singh Home Decor,Shopping & Fashion,9,Small
+9279,Sharma Fuel Station,Fuel,9,Small
+9280,Reddy Fuel Station,Fuel,10,Small
+9281,Singh Water Works,Utilities & Bills,10,Micro
+9282,Khan Academy,Education,1,Small
+9283,Singh Footwear,Shopping & Fashion,5,Medium
+9284,Menon Streaming,Entertainment,3,Micro
+9285,Gupta Fashion,Shopping & Fashion,3,Medium
+9286,Chopra Kirana,Grocery & Kirana,3,Medium
+9287,Chopra Clinic,Healthcare & Pharmacy,1,Small
+9288,Nair Fresh Mart,Grocery & Kirana,2,Micro
+9289,Singh Kirana,Grocery & Kirana,4,Micro
+9290,Sharma General Store,Grocery & Kirana,3,Micro
+9291,Verma Footwear,Shopping & Fashion,4,Large
+9292,Yadav Electronics,Shopping & Fashion,12,Small
+9293,Sharma Pharmacy,Healthcare & Pharmacy,4,Micro
+9294,Reddy Travels,Travel & Transport,3,Medium
+9295,Banerjee Play Zone,Entertainment,4,Micro
+9296,Menon Fresh Mart,Grocery & Kirana,2,Micro
+9297,Kulkarni Footwear,Shopping & Fashion,4,Micro
+9298,Nair Kirana,Grocery & Kirana,4,Micro
+9299,Banerjee Travels,Travel & Transport,4,Medium
+9300,Joshi Supermart,Grocery & Kirana,6,Micro
+9301,Rao Electronics,Shopping & Fashion,3,Micro
+9302,Kulkarni Kirana,Grocery & Kirana,9,Micro
+9303,Joshi Recharge Point,Mobile Recharge,1,Micro
+9304,Chopra Fashion,Shopping & Fashion,7,Medium
+9305,Patel Fresh Mart,Grocery & Kirana,10,Small
+9306,Rao Play Zone,Entertainment,10,Small
+9307,Banerjee Fresh Mart,Grocery & Kirana,12,Micro
+9308,Rao Mobile Hub,Mobile Recharge,5,Large
+9309,Mehta General Store,Grocery & Kirana,5,Micro
+9310,Gupta General Store,Grocery & Kirana,5,Micro
+9311,Reddy Kitchen,Food Delivery,7,Micro
+9312,Pillai General Store,Grocery & Kirana,2,Micro
+9313,Patel Electricity Board,Utilities & Bills,5,Small
+9314,Reddy Electronics,Shopping & Fashion,11,Small
+9315,Verma Bus Tickets,Travel & Transport,2,Micro
+9316,Das Biryani House,Food Delivery,9,Micro
+9317,Khan Travels,Travel & Transport,3,Large
+9318,Patel Mobile Hub,Mobile Recharge,6,Micro
+9319,Nair Coaching Centre,Education,8,Micro
+9320,Singh Tiffin Centre,Food Delivery,3,Small
+9321,Reddy Supermart,Grocery & Kirana,4,Micro
+9322,Rao Electronics,Shopping & Fashion,1,Micro
+9323,Kulkarni Kitchen,Food Delivery,2,Micro
+9324,Verma Academy,Education,3,Micro
+9325,Rao Petro Point,Fuel,5,Small
+9326,Iyer Cafe,Food Delivery,3,Micro
+9327,Chopra Tiffin Centre,Food Delivery,1,Small
+9328,Mehta Supermart,Grocery & Kirana,9,Medium
+9329,Pillai Kirana,Grocery & Kirana,2,Micro
+9330,Patel Coaching Centre,Education,1,Medium
+9331,Patel Biryani House,Food Delivery,4,Micro
+9332,Gupta Biryani House,Food Delivery,1,Micro
+9333,Nair Metro Pass,Travel & Transport,7,Micro
+9334,Mehta Tiffin Centre,Food Delivery,12,Micro
+9335,Singh Water Works,Utilities & Bills,10,Small
+9336,Das Tiffin Centre,Food Delivery,9,Micro
+9337,Mehta Broadband,Utilities & Bills,2,Medium
+9338,Reddy Metro Pass,Travel & Transport,11,Small
+9339,Yadav Diagnostics,Healthcare & Pharmacy,4,Small
+9340,Singh Home Decor,Shopping & Fashion,2,Micro
+9341,Rao Tiffin Centre,Food Delivery,2,Micro
+9342,Pillai Electronics,Shopping & Fashion,8,Micro
+9343,Das Biryani House,Food Delivery,7,Micro
+9344,Kulkarni Travels,Travel & Transport,2,Micro
+9345,Rao Streaming,Entertainment,5,Micro
+9346,Pillai Supermart,Grocery & Kirana,1,Micro
+9347,Rao Recharge Point,Mobile Recharge,3,Micro
+9348,Chopra Fuel Station,Fuel,2,Small
+9349,Reddy Gas Agency,Utilities & Bills,12,Small
+9350,Reddy Footwear,Shopping & Fashion,2,Small
+9351,Verma Tiffin Centre,Food Delivery,1,Small
+9352,Rao Pharmacy,Healthcare & Pharmacy,1,Micro
+9353,Bhatt Supermart,Grocery & Kirana,10,Small
+9354,Sharma Kitchen,Food Delivery,9,Micro
+9355,Singh Fashion,Shopping & Fashion,4,Large
+9356,Rao Cafe,Food Delivery,5,Micro
+9357,Patel Fashion,Shopping & Fashion,3,Micro
+9358,Khan Biryani House,Food Delivery,2,Small
+9359,Singh Biryani House,Food Delivery,8,Micro
+9360,Kulkarni Biryani House,Food Delivery,10,Large
+9361,Singh Diagnostics,Healthcare & Pharmacy,5,Small
+9362,Gupta Kirana,Grocery & Kirana,1,Micro
+9363,Das Academy,Education,4,Small
+9364,Menon Broadband,Utilities & Bills,12,Micro
+9365,Mehta Footwear,Shopping & Fashion,5,Micro
+9366,Joshi Gas Agency,Utilities & Bills,5,Small
+9367,Pillai Kirana,Grocery & Kirana,3,Micro
+9368,Chopra Fuel Station,Fuel,3,Small
+9369,Joshi General Store,Grocery & Kirana,6,Micro
+9370,Rao Supermart,Grocery & Kirana,12,Micro
+9371,Khan Mobile Hub,Mobile Recharge,10,Micro
+9372,Bhatt Clinic,Healthcare & Pharmacy,2,Large
+9373,Singh Tiffin Centre,Food Delivery,8,Medium
+9374,Kulkarni Fuel Station,Fuel,1,Medium
+9375,Kulkarni Gas Agency,Utilities & Bills,1,Small
+9376,Kulkarni Play Zone,Entertainment,8,Micro
+9377,Banerjee Pharmacy,Healthcare & Pharmacy,1,Micro
+9378,Chopra Clinic,Healthcare & Pharmacy,3,Medium
+9379,Gupta Supermart,Grocery & Kirana,2,Micro
+9380,Rao Diagnostics,Healthcare & Pharmacy,12,Small
+9381,Bhatt Recharge Point,Mobile Recharge,12,Small
+9382,Gupta Kirana,Grocery & Kirana,11,Small
+9383,Pillai Fresh Mart,Grocery & Kirana,2,Small
+9384,Menon Kirana,Grocery & Kirana,5,Micro
+9385,Pillai Supermart,Grocery & Kirana,8,Medium
+9386,Yadav Petro Point,Fuel,5,Large
+9387,Chopra Fresh Mart,Grocery & Kirana,4,Small
+9388,Patel Travels,Travel & Transport,1,Micro
+9389,Joshi Recharge Point,Mobile Recharge,2,Small
+9390,Kulkarni Mobile Hub,Mobile Recharge,10,Micro
+9391,Kulkarni Fuel Station,Fuel,2,Small
+9392,Das Recharge Point,Mobile Recharge,5,Micro
+9393,Menon Mobile Hub,Mobile Recharge,1,Small
+9394,Mehta Broadband,Utilities & Bills,6,Small
+9395,Singh Mobile Hub,Mobile Recharge,5,Micro
+9396,Pillai Cafe,Food Delivery,1,Small
+9397,Kulkarni Play Zone,Entertainment,9,Micro
+9398,Banerjee Kitchen,Food Delivery,7,Medium
+9399,Bhatt Recharge Point,Mobile Recharge,7,Micro
+9400,Das Broadband,Utilities & Bills,3,Small
+9401,Banerjee Fuel Station,Fuel,1,Small
+9402,Reddy Water Works,Utilities & Bills,2,Medium
+9403,Chopra Home Decor,Shopping & Fashion,2,Small
+9404,Reddy Diagnostics,Healthcare & Pharmacy,9,Micro
+9405,Banerjee Fresh Mart,Grocery & Kirana,1,Medium
+9406,Bhatt Play Zone,Entertainment,2,Micro
+9407,Gupta Footwear,Shopping & Fashion,2,Micro
+9408,Mehta Cabs,Travel & Transport,8,Micro
+9409,Yadav Pharmacy,Healthcare & Pharmacy,1,Large
+9410,Yadav Recharge Point,Mobile Recharge,6,Medium
+9411,Mehta Supermart,Grocery & Kirana,1,Micro
+9412,Reddy Supermart,Grocery & Kirana,1,Small
+9413,Reddy General Store,Grocery & Kirana,12,Small
+9414,Gupta Kirana,Grocery & Kirana,2,Micro
+9415,Gupta Clinic,Healthcare & Pharmacy,4,Medium
+9416,Kulkarni Mobile Hub,Mobile Recharge,3,Micro
+9417,Nair Kitchen,Food Delivery,7,Micro
+9418,Verma Pharmacy,Healthcare & Pharmacy,9,Small
+9419,Iyer Broadband,Utilities & Bills,5,Small
+9420,Pillai Kitchen,Food Delivery,4,Small

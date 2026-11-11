@@ -1,0 +1,326 @@
+<title>PayFlow UPI Dashboard</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: sticky filter bar, KPI strip, tabbed chart grid (mirrors the five Power BI pages). */
+:root {
+  --page: #f9f9f7; --surface: #fcfcfb; --panel: #f1f0ec; --ink: #0b0b0b; --ink2: #52514e; --muted: #6b6a65;
+  --grid: #e4e3dc; --axis: #c3c2b7; --border: rgba(11,11,11,.12);
+  --blue: #2a78d6; --orange: #eb6834; --crit: #d03b3b; --good: #0ca30c;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --page: #0d0d0d; --surface: #1a1a19; --panel: #232321; --ink: #f0efec; --ink2: #c3c2b7; --muted: #a09f98;
+    --grid: #2c2c2a; --axis: #3f3f3b; --border: rgba(240,239,236,.14);
+    --blue: #3987e5; --orange: #d95926; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --page: #0d0d0d; --surface: #1a1a19; --panel: #232321; --ink: #f0efec; --ink2: #c3c2b7; --muted: #a09f98;
+  --grid: #2c2c2a; --axis: #3f3f3b; --border: rgba(240,239,236,.14);
+  --blue: #3987e5; --orange: #d95926; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--page); color: var(--ink); font-family: var(--font); font-size: 14px; line-height: 1.45;
+  padding-block: 20px 40px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1180px; margin: 0 auto; display: grid; gap: 16px; }
+header { display: grid; gap: 4px; }
+h1 { font-size: 22px; line-height: 1.2; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+.sub { color: var(--muted); font-size: 13px; margin: 0; }
+.filters { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; }
+.filters label { display: grid; gap: 4px; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); min-width: 0; }
+select { font: inherit; font-size: 14px; color: var(--ink); background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 7px 10px; min-width: 150px; max-width: 100%; }
+select:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+button.reset { font: inherit; font-size: 13px; color: var(--ink2); background: transparent; border: 1px solid var(--border); border-radius: 6px; padding: 7px 12px; cursor: pointer; }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.kpi { background: var(--panel); border-radius: 8px; padding: 12px 14px; min-width: 0; }
+.kpi .l { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.kpi .v { font-size: 26px; font-weight: 650; line-height: 1.15; margin-top: 2px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.kpi .s { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+.warn { background: var(--panel); border-left: 3px solid var(--orange); padding: 8px 12px; border-radius: 4px; font-size: 13px; color: var(--ink2); }
+nav { display: flex; flex-wrap: wrap; gap: 4px; border-bottom: 1px solid var(--border); }
+nav button { font: inherit; font-size: 14px; font-weight: 550; color: var(--ink2); background: none; border: 0; border-bottom: 2px solid transparent; padding: 9px 14px; cursor: pointer; margin-bottom: -1px; }
+nav button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--blue); }
+.take { margin: 0; padding: 10px 14px; background: var(--panel); border-radius: 8px; color: var(--ink2); font-size: 13.5px; }
+.take strong { color: var(--ink); }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px 10px; min-width: 0; }
+.card.wide { grid-column: 1 / -1; }
+.card h2 { font-size: 13.5px; margin: 0; font-weight: 650; }
+.card .hd { display: flex; justify-content: space-between; align-items: start; gap: 8px; margin-bottom: 6px; }
+.card .hint { font-size: 12px; color: var(--muted); margin: 2px 0 0; }
+.tog { font: inherit; font-size: 11.5px; color: var(--ink2); background: transparent; border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; cursor: pointer; flex: none; }
+.chart svg { display: block; width: 100%; overflow: visible; }
+.chart text { font-family: var(--font); fill: var(--muted); font-size: 11px; }
+.chart .val { fill: var(--ink); font-weight: 600; }
+.chart .flag { fill: var(--crit); font-weight: 700; font-size: 10px; }
+.empty { color: var(--muted); padding: 24px 0; text-align: center; }
+.tbl { overflow-x: auto; max-height: 300px; }
+table { border-collapse: collapse; width: 100%; font-size: 12.5px; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--grid); white-space: nowrap; }
+th { color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; position: sticky; top: 0; background: var(--surface); }
+td.n, th.n { text-align: right; }
+.row2 { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; margin-bottom: 8px; }
+#tip { position: fixed; z-index: 20; pointer-events: none; background: var(--ink); color: var(--page); font-size: 12px; padding: 5px 8px; border-radius: 5px; max-width: 260px; opacity: 0; transition: opacity .08s; }
+footer { color: var(--muted); font-size: 12px; }
+@media (max-width: 860px) { .grid { grid-template-columns: minmax(0, 1fr); } .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } .kpi .v { font-size: 22px; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>PayFlow UPI Payments</h1>
+    <p class="sub" id="sub"></p>
+  </header>
+
+  <div class="filters" role="group" aria-label="Filters">
+    <label>Month<select id="fm"></select></label>
+    <label>City<select id="fc"></select></label>
+    <label>Category<select id="fk"></select></label>
+    <button class="reset" id="reset" type="button">Reset filters</button>
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+  <div class="warn" id="warn" hidden>Fewer than 300 transactions match these filters, so rates can swing a lot from one transaction to the next.</div>
+
+  <nav role="tablist" aria-label="Report pages" id="tabs"></nav>
+  <p class="take" id="take"></p>
+  <main id="view"></main>
+
+  <footer>Simulated data: PayFlow is fictional and the bank names are invented. Charts recalculate in your browser from pre-aggregated tables built by the project's Python script. Excel workbook and Power BI build kit are in the same project.</footer>
+</div>
+<div id="tip" role="tooltip"></div>
+
+<script>
+const D = __DATA__;
+const $ = (s, r = document) => r.querySelector(s);
+const TABS = [["overview", "Overview"], ["reliability", "Reliability"], ["incidents", "Incident watch"], ["risk", "Fraud and cashback"]];
+const state = { m: -1, c: -1, k: -1, tab: "overview", ib: Math.max(0, D.dims.banks.indexOf("Dominion National Bank")), im: Math.max(0, D.dims.months.indexOf("2025-10")) };
+const tableMode = {};
+
+const fmtN = n => Math.round(n).toLocaleString("en-IN");
+const fmtInr = x => x >= 1e7 ? "₹" + (x / 1e7).toFixed(2) + " Cr" : x >= 1e5 ? "₹" + (x / 1e5).toFixed(1) + " L" : "₹" + Math.round(x).toLocaleString("en-IN");
+const pct = (x, d = 1) => (x * 100).toFixed(d) + "%";
+const div = (a, b) => (b ? a / b : 0);
+
+/* ---------- data access: every cube row starts with its own dimension(s), then month, city, category ---------- */
+const POS = { core: [0, 1, 2], bank: [1, 2, 3], hour: [1, 2, 3], net: [1, 2, 3], reason: [1, 2, 3], band: [1, 2, 3] };
+function pick(rows, pos, ignore = "") {
+  const [pm, pc, pk] = pos;
+  return rows.filter(r => (ignore.includes("m") || state.m < 0 || r[pm] === state.m) && (ignore.includes("c") || state.c < 0 || r[pc] === state.c) && (ignore.includes("k") || state.k < 0 || r[pk] === state.k));
+}
+function groupBy(rows, keyIdx, fields) {
+  const out = new Map();
+  for (const r of rows) {
+    const k = r[keyIdx];
+    if (!out.has(k)) out.set(k, fields.map(() => 0));
+    const a = out.get(k);
+    fields.forEach((f, i) => { a[i] += r[f]; });
+  }
+  return out;
+}
+const sumCol = (rows, i) => rows.reduce((s, r) => s + r[i], 0);
+
+/* ---------- tooltip ---------- */
+const tip = $("#tip");
+document.addEventListener("pointermove", e => {
+  const t = e.target.closest && e.target.closest("[data-tip]");
+  if (!t) { tip.style.opacity = 0; return; }
+  tip.textContent = t.getAttribute("data-tip");
+  tip.style.opacity = 1;
+  const x = Math.min(e.clientX + 14, window.innerWidth - tip.offsetWidth - 8);
+  tip.style.left = Math.max(8, x) + "px"; tip.style.top = (e.clientY + 16) + "px";
+});
+
+/* ---------- chart card ---------- */
+function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;"); }
+function niceMax(v) { if (v <= 0) return 1; const p = Math.pow(10, Math.floor(Math.log10(v))); const n = v / p; return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 2.5 ? 2.5 : n <= 5 ? 5 : 10) * p; }
+
+function niceScale(v) {
+  const raw = Math.max(v, 1e-9) / 4, p = Math.pow(10, Math.floor(Math.log10(raw)));
+  const step = [1, 2, 2.5, 5, 10].map(m => m * p).find(x => x >= raw - 1e-12);
+  return { step, max: step * Math.ceil(v / step - 1e-9) };
+}
+function card(id, title, hint, items, o = {}) {
+  const el = document.createElement("section");
+  el.className = "card" + (o.wide ? " wide" : "");
+  el.innerHTML = `<div class="hd"><div><h2>${esc(title)}</h2>${hint ? `<p class="hint">${esc(hint)}</p>` : ""}</div><button class="tog" type="button" aria-pressed="false">Table</button></div><div class="chart" id="ch-${id}"></div>`;
+  const body = $(".chart", el), btn = $(".tog", el);
+  const draw = () => {
+    if (!items.length || items.every(i => !isFinite(i.value))) { body.innerHTML = '<div class="empty">No transactions for this selection.</div>'; return; }
+    if (tableMode[id]) body.innerHTML = tableHtml(items, o); else body.innerHTML = o.type === "col" ? columns(items, body.clientWidth || 480, o) : bars(items, body.clientWidth || 480, o);
+  };
+  btn.addEventListener("click", () => { tableMode[id] = !tableMode[id]; btn.setAttribute("aria-pressed", tableMode[id]); btn.textContent = tableMode[id] ? "Chart" : "Table"; draw(); });
+  btn.textContent = tableMode[id] ? "Chart" : "Table";
+  el._draw = draw;
+  requestAnimationFrame(draw);
+  return el;
+}
+function tableHtml(items, o) {
+  return `<div class="tbl"><table><thead><tr><th>${esc(o.dim || "Group")}</th><th class="n">${esc(o.metric || "Value")}</th></tr></thead><tbody>${items.map(i => `<tr><td>${esc(i.label)}</td><td class="n">${esc(i.text ?? o.fmt(i.value))}</td></tr>`).join("")}</tbody></table></div>`;
+}
+function bars(items, w, o) {
+  const rowH = 24, top = 4, labelW = Math.min(172, Math.round(w * 0.42)), right = 56, h = top + items.length * rowH + 4;
+  const max = o.max ?? niceMax(Math.max(...items.map(i => i.value))), min = o.min ?? 0, inner = Math.max(40, w - labelW - right);
+  const sx = v => Math.max(0, (v - min) / (max - min)) * inner;
+  const trunc = (s, n) => (s.length > n ? s.slice(0, n - 1) + "…" : s);
+  const maxChars = Math.floor(labelW / 6.2);
+  let g = "";
+  items.forEach((it, i) => {
+    const y = top + i * rowH, bw = Math.max(1, sx(it.value)), color = it.flag ? "var(--crit)" : o.color === "orange" ? "var(--orange)" : "var(--blue)";
+    g += `<g data-tip="${esc(it.label + ": " + (it.text ?? o.fmt(it.value)))}"><text x="${labelW - 8}" y="${y + rowH / 2 + 4}" text-anchor="end">${esc(trunc(it.label, maxChars))}</text>` +
+      `<rect x="${labelW}" y="${y + 4}" width="${bw}" height="${rowH - 9}" rx="3" style="fill:${color}"></rect>` +
+      `<text class="val" x="${labelW + bw + 6}" y="${y + rowH / 2 + 4}">${esc(it.text ?? o.fmt(it.value))}</text></g>`;
+  });
+  return `<svg viewBox="0 0 ${w} ${h}" height="${h}" role="img" aria-label="${esc(o.aria || "Bar chart")}">${g}</svg>`;
+}
+function columns(items, w, o) {
+  const h = o.h || 230, l = 44, r = 6, t = 18, b = o.rot ? 62 : 28, iw = w - l - r, ih = h - t - b;
+  const ns = o.max === undefined ? niceScale(Math.max(...items.map(i => i.value))) : { max: o.max, step: ((o.max) - (o.min ?? 0)) / 4 };
+  const max = ns.max, min = o.min ?? 0;
+  const sy = v => t + ih - Math.max(0, (v - min) / (max - min)) * ih;
+  const step = iw / items.length, bw = Math.max(2, Math.min(28, step * 0.64));
+  let g = "";
+  for (let v = min; v <= max + ns.step * 0.001; v += ns.step) { const y = sy(v); g += `<line x1="${l}" x2="${w - r}" y1="${y}" y2="${y}" style="stroke:var(--grid)" stroke-width="1"></line><text x="${l - 6}" y="${y + 4}" text-anchor="end">${esc(o.axisFmt ? o.axisFmt(v) : o.fmt(v))}</text>`; }
+  const every = o.every || (items.length > 14 && !o.rot ? 2 : (o.rot && step < 19 ? 2 : 1));
+  items.forEach((it, i) => {
+    const x = l + step * i + (step - bw) / 2, y = sy(it.value), color = it.flag ? "var(--crit)" : o.color === "orange" ? "var(--orange)" : "var(--blue)", op = it.dim ? 0.35 : 1;
+    g += `<g data-tip="${esc(it.label + ": " + (it.text ?? o.fmt(it.value)))}"><rect x="${l + step * i}" y="${t}" width="${step}" height="${ih + 6}" style="fill:transparent"></rect>` +
+      `<path d="M${x},${t + ih} V${y + 3} Q${x},${y} ${x + 3},${y} H${x + bw - 3} Q${x + bw},${y} ${x + bw},${y + 3} V${t + ih} Z" style="fill:${color}" opacity="${op}"></path></g>`;
+    if (it.flag) g += `<text class="flag" x="${x + bw / 2}" y="${Math.max(10, y - 4)}" text-anchor="middle">SPIKE</text>`;
+    if (i % every === 0) {
+      const lx = x + bw / 2;
+      g += o.rot ? `<text x="${lx}" y="${t + ih + 12}" text-anchor="end" transform="rotate(-45 ${lx} ${t + ih + 12})">${esc(it.label)}</text>` : `<text x="${lx}" y="${t + ih + 16}" text-anchor="middle">${esc(it.short ?? it.label)}</text>`;
+    }
+  });
+  g += `<line x1="${l}" x2="${w - r}" y1="${t + ih}" y2="${t + ih}" style="stroke:var(--axis)"></line>`;
+  return `<svg viewBox="0 0 ${w} ${h}" height="${h}" role="img" aria-label="${esc(o.aria || "Column chart")}">${g}</svg>`;
+}
+
+/* ---------- KPI strip ---------- */
+function renderKpis() {
+  const rows = pick(D.core, POS.core);
+  const t = sumCol(rows, 3), s = sumCol(rows, 4), v = sumCol(rows, 5), sy = sumCol(rows, 6), f = sumCol(rows, 9), cb = sumCol(rows, 11), rs = sumCol(rows, 12);
+  const cards = [["Total payment value", fmtInr(v), "Successful payments"], ["Transactions", fmtN(t), "All attempts"], ["Success rate", pct(div(s, t)), "Successful / attempted"],
+    ["Average ticket", "₹" + fmtN(div(v, s)), "Per successful payment"], ["System failure rate", pct(div(sy, t), 2), "Bank or network faults"], ["Fraud flag rate", div(f, t) * 1e4 ? (div(f, t) * 1e4).toFixed(1) + " bps" : "0 bps", "Flagged per 10,000"],
+    ["Cashback cost", pct(div(cb, v), 2), "Cashback as % of TPV"], ["Avg response", (div(rs, t) / 1000).toFixed(2) + " s", "Per attempt"]];
+  $("#kpis").innerHTML = cards.map(c => `<div class="kpi"><div class="l">${c[0]}</div><div class="v">${c[1]}</div><div class="s">${c[2]}</div></div>`).join("");
+  $("#warn").hidden = t >= 300;
+  return { t, s, v, sy };
+}
+
+/* ---------- pages ---------- */
+const M = D.dims.months, C = D.dims.cities, K = D.dims.cats, B = D.dims.banks, N = D.dims.nets;
+const shortMonth = m => { const [y, mo] = m.split("-"); return ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][+mo - 1] + " " + y.slice(2); };
+
+function bankStats() {
+  const g = groupBy(pick(D.bank, POS.bank), 0, [4, 5, 6, 7]);
+  return B.map((name, i) => { const a = g.get(i) || [0, 0, 0, 0]; return { name, type: D.dims.bankType[i], t: a[0], s: a[1], sy: a[2], sv: a[3] }; }).filter(b => b.t > 0);
+}
+
+function pageOverview(view) {
+  const g = groupBy(pick(D.core, POS.core, "m"), 0, [3, 5]);
+  const trend = M.map((m, i) => ({ label: shortMonth(m), value: (g.get(i) || [0, 0])[1], dim: state.m >= 0 && state.m !== i, text: fmtInr((g.get(i) || [0, 0])[1]) }));
+  view.append(card("trend", "Monthly TPV", state.m >= 0 ? "Selected month highlighted; the trend ignores the month filter." : "Successful payment value per month", trend,
+    { type: "col", rot: true, h: 270, wide: true, fmt: fmtInr, axisFmt: v => { const x = v / 1e5; return x >= 100 ? (x / 100).toFixed(1) + " Cr" : (Number.isInteger(x) ? x : x.toFixed(1)) + " L"; }, dim: "Month", metric: "TPV", aria: "Monthly total payment value" }));
+  const gk = groupBy(pick(D.core, POS.core, "k"), 2, [5]);
+  const cats = K.map((k, i) => ({ label: k, value: (gk.get(i) || [0])[0] })).filter(x => x.value > 0).sort((a, b) => b.value - a.value);
+  view.append(card("cats", "TPV by category", state.k >= 0 ? "Shows all categories; the category filter is ignored here." : "Successful payment value", cats, { fmt: fmtInr, dim: "Category", metric: "TPV", aria: "TPV by category" }));
+  const bs = bankStats().map(b => ({ label: b.name, value: div(b.s, b.t), text: pct(div(b.s, b.t)) })).sort((a, b) => a.value - b.value);
+  view.append(card("bank-success", "Success rate by bank", "Weakest first. Axis starts at 80%.", bs, { fmt: v => pct(v), min: 0.8, max: 1, dim: "Bank", metric: "Success rate", aria: "Success rate by bank" }));
+  const gc = groupBy(pick(D.core, POS.core, "c"), 1, [5]);
+  const cities = C.map((c, i) => ({ label: c, value: (gc.get(i) || [0])[0] })).filter(x => x.value > 0).sort((a, b) => b.value - a.value);
+  view.append(card("cities", "TPV by city", state.c >= 0 ? "Shows all cities; the city filter is ignored here." : "Successful payment value", cities, { fmt: fmtInr, dim: "City", metric: "TPV", aria: "TPV by city" }));
+}
+
+function pageReliability(view) {
+  const bs = bankStats().map(b => ({ label: b.name, value: div(b.sy, b.t), text: pct(div(b.sy, b.t), 2), t: b.t })).sort((a, b) => b.value - a.value);
+  view.append(card("bank-sys", "System failure rate by bank", "Share of attempts that failed for a bank or network fault", bs, { fmt: v => pct(v, 2), color: "orange", dim: "Bank", metric: "System failure rate", aria: "System failure rate by bank" }));
+  const gr = groupBy(pick(D.reason, POS.reason), 0, [4]);
+  const reasons = D.dims.reasons.map((r, i) => ({ label: r, value: (gr.get(i) || [0])[0] })).filter(x => x.value > 0).sort((a, b) => b.value - a.value);
+  view.append(card("reasons", "Why payments fail", "Count of failed payments by reason", reasons, { fmt: fmtN, dim: "Reason", metric: "Failures", aria: "Failure reasons" }));
+  const gh = groupBy(pick(D.hour, POS.hour), 0, [4, 5]);
+  const hours = Array.from({ length: 24 }, (_, h) => { const a = gh.get(h) || [0, 0]; return { label: h + ":00", short: String(h), value: div(a[1], a[0]), text: pct(div(a[1], a[0]), 2) }; });
+  view.append(card("hours", "System failure rate by hour", "Hour of day, 0 to 23", hours, { type: "col", color: "orange", fmt: v => pct(v, 1), dim: "Hour", metric: "System failure rate", every: 2, aria: "System failure rate by hour" }));
+  const gn = groupBy(pick(D.net, POS.net), 0, [4, 5]);
+  const nets = N.map((n, i) => { const a = gn.get(i) || [0, 0]; return { label: n, value: div(a[1], a[0]), text: pct(div(a[1], a[0]), 2) }; });
+  view.append(card("nets", "System failure rate by network", "Weak 2G/3G signal is the biggest single driver", nets, { type: "col", color: "orange", fmt: v => pct(v, 1), dim: "Network", metric: "System failure rate", aria: "System failure rate by network" }));
+}
+
+function binomTail(k, n, p) {            // P(X >= k) for X ~ Binomial(n, p)
+  if (k <= 0) return 1; if (p <= 0) return 0; if (p >= 1) return 1;
+  let pmf = Math.pow(1 - p, n), cdf = pmf;
+  for (let i = 0; i < k - 1; i++) { pmf *= ((n - i) / (i + 1)) * (p / (1 - p)); cdf += pmf; }
+  return Math.max(0, 1 - cdf);
+}
+const bankNormal = B.map((_, b) => { const r = D.bank.filter(x => x[0] === b); return div(sumCol(r, 6), sumCol(r, 4)); });
+const fmtP = x => (x < 0.0001 ? "<0.0001" : x.toFixed(4));
+function pageIncidents(view) {
+  const ctl = document.createElement("div");
+  ctl.className = "card wide";
+  ctl.innerHTML = `<div class="row2"><label style="display:grid;gap:4px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">Bank<select id="ib">${B.map((b, i) => `<option value="${i}" ${i === state.ib ? "selected" : ""}>${esc(b)}</option>`).join("")}</select></label>` +
+    `<label style="display:grid;gap:4px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">Month<select id="im">${M.map((m, i) => `<option value="${i}" ${i === state.im ? "selected" : ""}>${m}</option>`).join("")}</select></label></div>` +
+    `<p class="hint">A day is flagged when the bank has at least 5 transactions and the chance of that many system failures at its normal rate (all months) is below 0.1%. These two pickers are independent of the filters above. Try Dominion National Bank in 2025-10 or Greenfield Small Finance Bank in 2026-03.</p>`;
+  view.append(ctl);
+  const month = M[state.im], days = D.dims.dates.map((d, i) => [d, i]).filter(x => x[0].startsWith(month));
+  const byDay = new Map(D.daily.filter(r => r[0] === state.ib).map(r => [r[1], r]));
+  const rows = days.map(([d, i]) => { const r = byDay.get(i) || [0, i, 0, 0]; return { d, t: r[2], sy: r[3], rate: div(r[3], r[2]) }; });
+  const p0 = bankNormal[state.ib];
+  rows.forEach(r => { r.pv = r.t >= 5 ? (r.sy === 0 ? 1 : binomTail(r.sy, r.t, p0)) : null; r.flag = r.pv !== null && r.pv < 0.001; });
+  const items = rows.map(r => ({ label: r.d.slice(8), value: r.rate, flag: r.flag, text: `${pct(r.rate, 0)} (${r.sy} of ${r.t})`, short: r.d.slice(8) }));
+  view.append(card("daily", `Daily system failure rate: ${B[state.ib]}, ${month}`, `Bank normal rate ${pct(p0, 1)} across all months`, items, { type: "col", wide: true, color: "orange", fmt: v => pct(v, 0), every: 2, dim: "Day", metric: "System failure rate", aria: "Daily system failure rate" }));
+  const flagged = rows.filter(r => r.flag);
+  const t = document.createElement("section"); t.className = "card wide";
+  t.innerHTML = `<div class="hd"><h2>Flagged days</h2></div>` + (flagged.length ? `<div class="tbl"><table><thead><tr><th>Date</th><th class="n">Transactions</th><th class="n">System failures</th><th class="n">Failure rate</th><th class="n">Times normal rate</th><th class="n">Chance by luck</th></tr></thead><tbody>${flagged.map(r => `<tr><td>${r.d}</td><td class="n">${r.t}</td><td class="n">${r.sy}</td><td class="n">${pct(r.rate, 0)}</td><td class="n">${(r.rate / Math.max(p0, 1e-9)).toFixed(1)}x</td><td class="n">${fmtP(r.pv)}</td></tr>`).join("")}</tbody></table></div>` : `<p class="empty">No spike days for this bank and month.</p>`);
+  view.append(t);
+  ctl.querySelector("#ib").addEventListener("change", e => { state.ib = +e.target.value; render(); });
+  ctl.querySelector("#im").addEventListener("change", e => { state.im = +e.target.value; render(); });
+  state._incident = { flagged: flagged.length, bank: B[state.ib], month };
+}
+
+function bandCard(view, key, id, title, hint) {
+  const b = D.bands[key], g = groupBy(pick(b.rows, POS.band), 0, [4, 5]);
+  const items = b.labels.map((l, i) => { const a = g.get(i) || [0, 0]; return { label: l.replace(/^\d\.\s*/, ""), value: div(a[1], a[0]) * 1e4, text: (div(a[1], a[0]) * 1e4).toFixed(0) + " bps", n: a[0] }; });
+  view.append(card(id, title, hint, items, { type: "col", color: "orange", fmt: v => v.toFixed(0), axisFmt: v => v.toFixed(0), rot: key === "h", h: key === "h" ? 250 : 220, dim: "Group", metric: "Fraud flags per 10,000", aria: title }));
+}
+function pageRisk(view) {
+  bandCard(view, "h", "fr-h", "Fraud flag rate by time of day", "Flags per 10,000 transactions");
+  bandCard(view, "t", "fr-t", "Fraud flag rate by customer tenure", "Days since signup");
+  bandCard(view, "a", "fr-a", "Fraud flag rate by amount", "Groups above Rs 25,000 are very small and noisy");
+  const gk = groupBy(pick(D.core, POS.core, "k"), 2, [5, 11]);
+  const cb = K.map((k, i) => { const a = gk.get(i) || [0, 0]; return { label: k, value: div(a[1], a[0]), text: pct(div(a[1], a[0]), 2) }; }).filter(x => x.value > 0).sort((a, b) => b.value - a.value);
+  view.append(card("cb", "Cashback cost by category", state.k >= 0 ? "Shows all categories; the category filter is ignored here." : "Cashback paid as a share of the category's TPV", cb, { fmt: v => pct(v, 2), dim: "Category", metric: "Cashback % of TPV", aria: "Cashback cost by category" }));
+}
+
+/* ---------- one-line reading for each page ---------- */
+function takeaway(k) {
+  if (k.t < 300) return "Widen the filters to see a stable reading.";
+  if (state.tab === "overview") { const bs = bankStats().filter(b => b.t >= 50).sort((a, b) => div(a.s, a.t) - div(b.s, b.t)); return bs.length > 1 ? `Across this view the success rate is <strong>${pct(div(k.s, k.t))}</strong>. <strong>${esc(bs[0].name)}</strong> is lowest at ${pct(div(bs[0].s, bs[0].t))}; <strong>${esc(bs[bs.length - 1].name)}</strong> is highest at ${pct(div(bs[bs.length - 1].s, bs[bs.length - 1].t))}.` : `Success rate ${pct(div(k.s, k.t))}.`; }
+  if (state.tab === "reliability") { const bs = bankStats().filter(b => b.t >= 50).sort((a, b) => div(b.sy, b.t) - div(a.sy, a.t)); if (bs.length < 2) return ""; const w = bs[0], b = bs[bs.length - 1]; return `<strong>${esc(w.name)}</strong> has a ${pct(div(w.sy, w.t), 1)} system failure rate, ${(div(w.sy, w.t) / Math.max(div(b.sy, b.t), 1e-9)).toFixed(1)}x that of <strong>${esc(b.name)}</strong> (${pct(div(b.sy, b.t), 1)}). System failures put <strong>${fmtInr(bs.reduce((s, x) => s + x.sv, 0))}</strong> of attempted value at risk.`; }
+  if (state.tab === "incidents") { const i = state._incident; return i ? (i.flagged ? `<strong>${i.flagged}</strong> spike day${i.flagged > 1 ? "s" : ""} for ${esc(i.bank)} in ${i.month}.` : `No spike days for ${esc(i.bank)} in ${i.month}.`) : ""; }
+  return "Flag rates are highest for new customers and for night-time payments. Cashback is concentrated in a few categories.";
+}
+
+/* ---------- shell ---------- */
+function render() {
+  const k = renderKpis();
+  const view = $("#view"); view.innerHTML = ""; view.className = "grid";
+  ({ overview: pageOverview, reliability: pageReliability, incidents: pageIncidents, risk: pageRisk })[state.tab](view);
+  $("#take").innerHTML = takeaway(k);
+  $("#tabs").querySelectorAll("button").forEach(b => b.setAttribute("aria-selected", b.dataset.t === state.tab));
+}
+function init() {
+  $("#sub").textContent = `Simulated data: ${fmtN(D.meta.txns)} transactions, ${fmtN(D.meta.customers)} customers, ${shortMonth(D.meta.first)} to ${shortMonth(D.meta.last)}.`;
+  const fill = (id, label, list) => { $(id).innerHTML = `<option value="-1">All ${label}</option>` + list.map((v, i) => `<option value="${i}">${esc(v)}</option>`).join(""); };
+  fill("#fm", "months", M); fill("#fc", "cities", C); fill("#fk", "categories", K);
+  [["#fm", "m"], ["#fc", "c"], ["#fk", "k"]].forEach(([id, key]) => $(id).addEventListener("change", e => { state[key] = +e.target.value; render(); }));
+  $("#reset").addEventListener("click", () => { state.m = state.c = state.k = -1; ["#fm", "#fc", "#fk"].forEach(i => { $(i).value = "-1"; }); render(); });
+  $("#tabs").innerHTML = TABS.map(([id, name]) => `<button role="tab" type="button" data-t="${id}">${name}</button>`).join("");
+  $("#tabs").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; state.tab = b.dataset.t; try { history.replaceState(null, "", "#" + state.tab); } catch (_) {} render(); });
+  const h = (location.hash || "").slice(1); if (TABS.some(t => t[0] === h)) state.tab = h;
+  window.addEventListener("hashchange", () => { const x = location.hash.slice(1); if (TABS.some(t => t[0] === x)) { state.tab = x; render(); } });
+  let rt; new ResizeObserver(() => { clearTimeout(rt); rt = setTimeout(() => document.querySelectorAll(".card").forEach(c => c._draw && c._draw()), 80); }).observe(document.body);
+  render();
+}
+init();
+</script>
