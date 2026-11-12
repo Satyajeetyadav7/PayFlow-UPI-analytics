@@ -1,6 +1,8 @@
 Flask
 pandas
 numpy
+plotly
 scikit-learn
 lightgbm
 gunicorn
+streamlit
